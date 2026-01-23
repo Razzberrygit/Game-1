@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://njbpl45oue3k"]
+
+[ext_resource type="Script" uid="uid://bmsshxw53lmw1" path="res://Assets/Scripts/Temp/PlayerSpawner.gd" id="1_2fucw"]
+[ext_resource type="Texture2D" uid="uid://bmldtuwmfbdyi" path="res://Assets/Sprites/Temp/Stand1.png" id="2_25uqx"]
+
+[node name="PlayerSpawner" type="Node2D"]
+script = ExtResource("1_2fucw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_25uqx")

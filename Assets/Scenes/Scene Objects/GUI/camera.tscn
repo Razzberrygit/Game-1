@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cofvttol0m26e"]
+
+[ext_resource type="Script" uid="uid://ds7l5jeo12scm" path="res://Assets/Scripts/GUI/Camera.gd" id="1_kwbyb"]
+
+[node name="Camera" type="Camera2D"]
+zoom = Vector2(0.56, 0.56)
+limit_enabled = false
+script = ExtResource("1_kwbyb")
+smoothingSpeed = 0.17

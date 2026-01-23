@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2cak04gpwmei"]
+
+[ext_resource type="Texture2D" uid="uid://d31r65jddtsbj" path="res://Assets/Sprites/Environment/Non Static/GearSheet.png" id="1_6ep2o"]
+
+[node name="Gear1-Small" type="Sprite2D"]
+texture = ExtResource("1_6ep2o")
+region_enabled = true
+region_rect = Rect2(396, 278, 151, 154)

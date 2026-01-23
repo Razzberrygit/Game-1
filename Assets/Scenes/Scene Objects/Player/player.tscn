@@ -1,0 +1,78 @@
+[gd_scene load_steps=11 format=3 uid="uid://c3nl2u3rbn08n"]
+
+[ext_resource type="Script" uid="uid://ie84hr1ws3y7" path="res://Assets/Scripts/Creatures/Player.gd" id="1_5atn3"]
+[ext_resource type="Texture2D" uid="uid://bmldtuwmfbdyi" path="res://Assets/Sprites/Temp/Stand1.png" id="2_rt28r"]
+[ext_resource type="PackedScene" uid="uid://bwi888k4c84bi" path="res://Assets/Scenes/Scene Objects/Components/InputComponent.tscn" id="3_rt28r"]
+[ext_resource type="PackedScene" uid="uid://babubhv6ewhuh" path="res://Assets/Scenes/Scene Objects/Components/GoundMovementComponent.tscn" id="4_wlk8y"]
+[ext_resource type="PackedScene" uid="uid://dnmtnni4y8euh" path="res://Assets/Scenes/Scene Objects/Components/HealthComponent.tscn" id="5_2lki7"]
+[ext_resource type="Script" uid="uid://eeird6mtg4ks" path="res://Assets/Scripts/Components/playerAttackComponent.gd" id="6_hfqsu"]
+[ext_resource type="PackedScene" uid="uid://ddhg35vgleg7o" path="res://Assets/Scenes/Scene Objects/Components/HurtBoxComponent.tscn" id="7_5rsmg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_remfj"]
+size = Vector2(70.99997, 378.20996)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wlk8y"]
+radius = 138.0145
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ueofb"]
+size = Vector2(71, 381)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("PlayerMovementComponent")]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_5atn3")
+PlayerMovementComponent = NodePath("GoundMovementComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(1.0499878, 10.10498)
+shape = SubResource("RectangleShape2D_remfj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_rt28r")
+
+[node name="InputComponent" parent="." instance=ExtResource("3_rt28r")]
+
+[node name="GoundMovementComponent" parent="." node_paths=PackedStringArray("collisionShape", "parent", "inputComponent") instance=ExtResource("4_wlk8y")]
+stepCheckHight = 50.0
+collisionShape = NodePath("../CollisionShape2D")
+walkSpeed = 800.0
+sprintSpeed = 1400.0
+parent = NodePath("..")
+inputComponent = NodePath("../InputComponent")
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_2lki7")]
+maxHealth = 5.0
+
+[node name="PlayerAttackComponent" type="Area2D" parent="." node_paths=PackedStringArray("inputComponent", "movementComponent", "parent")]
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("6_hfqsu")
+damage = 20.0
+knockbackForce = 3000.0
+upAttackPosition = Vector2(0, -250)
+downAttackPosition = Vector2(0, 250)
+leftAttackPosition = Vector2(-150, -50)
+rightAttackPosition = Vector2(150, -50)
+inputComponent = NodePath("../InputComponent")
+movementComponent = NodePath("../GoundMovementComponent")
+parent = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAttackComponent"]
+visible = false
+shape = SubResource("CircleShape2D_wlk8y")
+
+[node name="HurtBoxComponent" parent="." node_paths=PackedStringArray("healthComponent", "movementComponent") instance=ExtResource("7_5rsmg")]
+collision_layer = 2
+collision_mask = 8
+iFramesLength = 1.4
+healthComponent = NodePath("../HealthComponent")
+movementComponent = NodePath("../GoundMovementComponent")
+
+[node name="HurtBoxCollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
+visible = false
+position = Vector2(-1.5, 8.5)
+shape = SubResource("RectangleShape2D_ueofb")
+
+[connection signal="DamageDelt" from="HealthComponent" to="." method="_on_damage_delt"]
+[connection signal="area_entered" from="PlayerAttackComponent" to="PlayerAttackComponent" method="_on_area_entered"]

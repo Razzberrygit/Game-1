@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfxjqwdbnw4wk"]
+
+[ext_resource type="Texture2D" uid="uid://g6e21iijccpo" path="res://Assets/Sprites/Environment/Static/PipeFence.png" id="1_hqkf6"]
+[ext_resource type="Script" uid="uid://dx28752ufbt6g" path="res://Assets/Scripts/Environment/ZFake.gd" id="2_2wlrk"]
+
+[node name="PipeFence" type="Sprite2D"]
+z_index = -2
+texture = ExtResource("1_hqkf6")
+script = ExtResource("2_2wlrk")
+z = 0.02

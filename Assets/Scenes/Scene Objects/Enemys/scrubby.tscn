@@ -1,0 +1,277 @@
+[gd_scene load_steps=23 format=3 uid="uid://bsvy7khcvwqjc"]
+
+[ext_resource type="Texture2D" uid="uid://duucexkssvpiw" path="res://Assets/Sprites/Enemys/Scrubby.png" id="1_0mlra"]
+[ext_resource type="Script" uid="uid://bmi2kqiaeyxps" path="res://Assets/Scripts/Creatures/scrubby.gd" id="1_botip"]
+[ext_resource type="Texture2D" uid="uid://dbeg34uqawho" path="res://Assets/Sprites/Particle Textures/SmokeParticle.png" id="2_32kwy"]
+[ext_resource type="PackedScene" uid="uid://dnmtnni4y8euh" path="res://Assets/Scenes/Scene Objects/Components/HealthComponent.tscn" id="2_botip"]
+[ext_resource type="PackedScene" uid="uid://ddhg35vgleg7o" path="res://Assets/Scenes/Scene Objects/Components/HurtBoxComponent.tscn" id="3_32kwy"]
+[ext_resource type="PackedScene" uid="uid://y7cms8xm5ufl" path="res://Assets/Scenes/Scene Objects/Components/GroundAIInputComponent.tscn" id="5_tik1a"]
+[ext_resource type="PackedScene" uid="uid://babubhv6ewhuh" path="res://Assets/Scenes/Scene Objects/Components/GoundMovementComponent.tscn" id="6_tik1a"]
+[ext_resource type="Texture2D" uid="uid://dtutgfopfmxle" path="res://Assets/Sprites/Particle Textures/Bubble.png" id="8_1bwxd"]
+[ext_resource type="Texture2D" uid="uid://pqvoa040aqsu" path="res://Assets/Sprites/Particle Textures/CleanerSluge.png" id="9_tik1a"]
+
+[sub_resource type="Curve" id="Curve_1bwxd"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0.004048586, 0), 0.0, 0.0, 0, 0, Vector2(1, 100), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_32kwy"]
+_limits = [0.0, 10.0, 0.0, 1.0]
+_data = [Vector2(0, 1.931035), 0.0, 0.0, 0, 0, Vector2(0.22267203, 3.5), 4.6135063, 4.6135063, 0, 0, Vector2(1, 4.9827595), 0.0, 2.6912127, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_1bwxd"]
+offsets = PackedFloat32Array(0, 0.9909502)
+colors = PackedColorArray(0.38928556, 0.38928714, 0.38928598, 1, 1, 1, 1, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0mlra"]
+atlas = ExtResource("1_0mlra")
+region = Rect2(192, 83, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_botip"]
+atlas = ExtResource("1_0mlra")
+region = Rect2(0, 147, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32kwy"]
+atlas = ExtResource("1_0mlra")
+region = Rect2(64, 147, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bwxd"]
+atlas = ExtResource("1_0mlra")
+region = Rect2(128, 147, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tik1a"]
+atlas = ExtResource("1_0mlra")
+region = Rect2(192, 147, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drakq"]
+atlas = ExtResource("1_0mlra")
+region = Rect2(256, 147, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ikrxv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0mlra")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_botip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32kwy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bwxd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tik1a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drakq")
+}],
+"loop": true,
+"name": &"Scrub",
+"speed": 8.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_botip"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0mlra")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_botip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32kwy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bwxd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tik1a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drakq")
+}],
+"loop": true,
+"name": &"Scrub",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_00v30"]
+size = Vector2(172, 139)
+
+[sub_resource type="Gradient" id="Gradient_tik1a"]
+offsets = PackedFloat32Array(0, 0.04524887, 0.74660635, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Scrubby" type="CharacterBody2D" node_paths=PackedStringArray("rightFootAnimatedSprite2D", "leftFootAnimatedSprite2D", "inputComponent", "healthComponent", "smokeParticles", "leftBubbleParticles", "rightBubbleParticles", "whiteCleanerParticles", "spriteChunk")]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_botip")
+rightFootAnimatedSprite2D = NodePath("SpritesChunk/RightFootAnimatedSprite2D")
+leftFootAnimatedSprite2D = NodePath("SpritesChunk/LeftFootAnimatedSprite2D")
+inputComponent = NodePath("GroundAIInputComponent")
+healthComponent = NodePath("HealthComponent")
+smokeParticles = NodePath("CPUParticles2D")
+leftBubbleParticles = NodePath("CPUParticlesLeftBubbles")
+rightBubbleParticles = NodePath("CPUParticlesRightBubbles")
+whiteCleanerParticles = NodePath("CPUParticles2DWhiteCleaner")
+spriteChunk = NodePath("SpritesChunk")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(20, -61)
+emitting = false
+amount = 150
+texture = ExtResource("2_32kwy")
+lifetime = 2.0
+draw_order = 1
+direction = Vector2(1, -0.5)
+spread = 6.04
+gravity = Vector2(0, -140)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+angular_velocity_min = -20.0
+angular_velocity_max = 20.0
+linear_accel_min = -100.0
+linear_accel_max = -100.0
+tangential_accel_min = 1.0
+tangential_accel_max = 1.0
+damping_max = 1.0
+damping_curve = SubResource("Curve_1bwxd")
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.05
+scale_amount_max = 0.1
+scale_amount_curve = SubResource("Curve_32kwy")
+color = Color(0.29954746, 0.29954746, 0.29954743, 1)
+color_ramp = SubResource("Gradient_1bwxd")
+
+[node name="SpritesChunk" type="Node2D" parent="."]
+
+[node name="RightLegSprite2D" type="Sprite2D" parent="SpritesChunk"]
+position = Vector2(28, 23)
+texture = ExtResource("1_0mlra")
+region_enabled = true
+region_rect = Rect2(218, 0, 71, 80)
+
+[node name="LeftLegSprite2D" type="Sprite2D" parent="SpritesChunk"]
+position = Vector2(-29, 24)
+texture = ExtResource("1_0mlra")
+region_enabled = true
+region_rect = Rect2(138, 0, 77, 80)
+
+[node name="BodySprite2D" type="Sprite2D" parent="SpritesChunk"]
+position = Vector2(-2, -19)
+texture = ExtResource("1_0mlra")
+region_enabled = true
+region_rect = Rect2(0, 0, 137, 115)
+
+[node name="RightFootAnimatedSprite2D" type="AnimatedSprite2D" parent="SpritesChunk"]
+position = Vector2(59, 62)
+sprite_frames = SubResource("SpriteFrames_ikrxv")
+animation = &"Idle"
+frame_progress = 0.37796924
+
+[node name="LeftFootAnimatedSprite2D" type="AnimatedSprite2D" parent="SpritesChunk"]
+position = Vector2(-60, 61)
+sprite_frames = SubResource("SpriteFrames_botip")
+animation = &"Idle"
+frame_progress = 0.9993527
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-1, 3.5)
+shape = SubResource("RectangleShape2D_00v30")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_botip")]
+maxHealth = 100.0
+
+[node name="HurtBoxComponent" parent="." node_paths=PackedStringArray("healthComponent", "movementComponent") instance=ExtResource("3_32kwy")]
+collision_layer = 8
+collision_mask = 2
+contactDamage = 1.0
+healthComponent = NodePath("../HealthComponent")
+movementComponent = NodePath("../GoundMovementComponent")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtBoxComponent"]
+visible = false
+polygon = PackedVector2Array(0, -67, -69, 17, -58, 37, 56, 37, 68, 17)
+
+[node name="GoundMovementComponent" parent="." node_paths=PackedStringArray("collisionShape", "parent", "inputComponent") instance=ExtResource("6_tik1a")]
+stepCheckHight = 0.0
+collisionShape = NodePath("../CollisionShape2D")
+walkSpeed = 200.0
+sprintSpeed = 1400.0
+parent = NodePath("..")
+inputComponent = NodePath("../GroundAIInputComponent")
+
+[node name="GroundAIInputComponent" parent="." node_paths=PackedStringArray("movementComponent", "collisionShape", "parent") instance=ExtResource("5_tik1a")]
+doAIInput = null
+Idle = null
+wallRayLength = 20.0
+floorRayX = 20.0
+movementComponent = NodePath("../GoundMovementComponent")
+collisionShape = NodePath("../CollisionShape2D")
+parent = NodePath("..")
+
+[node name="CPUParticlesLeftBubbles" type="CPUParticles2D" parent="."]
+visible = false
+position = Vector2(-59, 70)
+amount = 5
+texture = ExtResource("8_1bwxd")
+lifetime = 1.8
+lifetime_randomness = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(25, 0.5)
+spread = 0.0
+gravity = Vector2(0, 0)
+damping_min = 70.0
+damping_max = 70.0
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+
+[node name="CPUParticlesRightBubbles" type="CPUParticles2D" parent="."]
+visible = false
+position = Vector2(59, 70)
+amount = 5
+texture = ExtResource("8_1bwxd")
+lifetime = 1.8
+lifetime_randomness = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(25, 0.5)
+spread = 0.0
+gravity = Vector2(0, 0)
+damping_min = 70.0
+damping_max = 70.0
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+
+[node name="CPUParticles2DWhiteCleaner" type="CPUParticles2D" parent="."]
+visible = false
+position = Vector2(0, 76)
+amount = 140
+texture = ExtResource("9_tik1a")
+lifetime = 2.0
+emission_shape = 4
+emission_points = PackedVector2Array(84, 0, 37, 0, -37, 0, -84, 0)
+emission_colors = PackedColorArray()
+gravity = Vector2(0, 0)
+scale_amount_min = 0.3
+scale_amount_max = 0.4
+color_ramp = SubResource("Gradient_tik1a")
+
+[connection signal="DamageDelt" from="HealthComponent" to="." method="_on_damage_delt"]
+[connection signal="Died" from="HealthComponent" to="." method="_died"]

@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://cn7v0nidrrb3g"]
+
+[ext_resource type="Texture2D" uid="uid://kqjovbrjlcoi" path="res://Assets/Sprites/Environment/Static/CopperPipeCage.png" id="1_4u5qp"]
+[ext_resource type="PackedScene" uid="uid://cofvttol0m26e" path="res://Assets/Scenes/Scene Objects/GUI/camera.tscn" id="1_wvrcb"]
+[ext_resource type="PackedScene" uid="uid://njbpl45oue3k" path="res://Assets/Scenes/Scene Objects/Player/PlayerSpawner.tscn" id="2_htef8"]
+[ext_resource type="PackedScene" uid="uid://bt01p2u6n35ey" path="res://Assets/Scenes/Scene Objects/Other/level_change.tscn" id="4_kcnkd"]
+[ext_resource type="Texture2D" uid="uid://b74rbpk4wkfbs" path="res://Assets/Sprites/Temp/Black.png" id="6_htef8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5fedj"]
+size = Vector2(1998.5, 82)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1aadk"]
+size = Vector2(151, 753)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvrcb"]
+size = Vector2(294, 743)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera" parent="." instance=ExtResource("1_wvrcb")]
+stillCameraPosition = Vector2(-2230, 40)
+
+[node name="PlayerSpawner" parent="." instance=ExtResource("2_htef8")]
+position = Vector2(-2786, 120)
+
+[node name="CopperJail" type="StaticBody2D" parent="."]
+position = Vector2(-2230, 40)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CopperJail"]
+visible = false
+position = Vector2(-18.5, 329)
+shape = SubResource("RectangleShape2D_5fedj")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CopperJail"]
+visible = false
+position = Vector2(-29.75, -339)
+shape = SubResource("RectangleShape2D_5fedj")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="CopperJail"]
+visible = false
+position = Vector2(-1075.5, -2.5)
+shape = SubResource("RectangleShape2D_1aadk")
+
+[node name="CopperPipeCage2" type="Sprite2D" parent="CopperJail"]
+z_index = -3
+texture = ExtResource("1_4u5qp")
+offset = Vector2(-76.455, -7.64)
+region_enabled = true
+region_rect = Rect2(0, 763, 2079, 613)
+
+[node name="CopperPipeCage3" type="Sprite2D" parent="CopperJail"]
+z_index = -2
+position = Vector2(935, -8)
+texture = ExtResource("1_4u5qp")
+region_enabled = true
+region_rect = Rect2(2112, 762, 310, 614)
+
+[node name="LevelChange" parent="CopperJail" instance=ExtResource("4_kcnkd")]
+position = Vector2(2309.5122, 28.894287)
+pathToChangeTo = "res://Assets/Scenes/Level Scenes/Copper-Jail.tscn"
+newPlayerPosition = Vector2(-1190, 171)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CopperJail/LevelChange"]
+visible = false
+position = Vector2(-1244.5122, -35.394287)
+shape = SubResource("RectangleShape2D_wvrcb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -100
+position = Vector2(-2225.5, 44.499237)
+scale = Vector2(56.215, 50.30499)
+texture = ExtResource("6_htef8")

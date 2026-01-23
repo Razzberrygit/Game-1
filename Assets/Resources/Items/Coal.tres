@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://bi24vogmex5em"]
+
+[ext_resource type="Script" uid="uid://ciqodi57o12xm" path="res://Assets/Scripts/GUI/ItemData.gd" id="1_70vls"]
+[ext_resource type="Texture2D" uid="uid://cocv4yva2q8jp" path="res://Assets/Sprites/Items/Coal.png" id="2_dihru"]
+
+[resource]
+script = ExtResource("1_70vls")
+name = "Coal"
+description = "YO MAMA"
+texture = ExtResource("2_dihru")
+customMinimumSize = Vector2(64, 64)

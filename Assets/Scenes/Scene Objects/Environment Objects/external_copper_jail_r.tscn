@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://lk8gwco3w331"]
+
+[ext_resource type="Texture2D" uid="uid://kqjovbrjlcoi" path="res://Assets/Sprites/Environment/Static/CopperPipeCage.png" id="1_uyevs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4nysn"]
+size = Vector2(1985, 750)
+
+[node name="ExternalCopperJailR" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="ExternalCopperJailR-Sprite" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("1_uyevs")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(0, 0, 2323, 763)
+
+[node name="CopperPipeCage" type="Sprite2D" parent="ExternalCopperJailR-Sprite"]
+position = Vector2(-5, 3)
+texture = ExtResource("1_uyevs")
+offset = Vector2(-965, -7)
+region_enabled = true
+region_rect = Rect2(2423, 764, 270, 612)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-3.5, -3)
+shape = SubResource("RectangleShape2D_4nysn")

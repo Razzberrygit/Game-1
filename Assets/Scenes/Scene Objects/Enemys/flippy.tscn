@@ -1,0 +1,308 @@
+[gd_scene load_steps=45 format=3 uid="uid://dln5vmen5cs"]
+
+[ext_resource type="Texture2D" uid="uid://bn3q2aqkhnoay" path="res://Assets/Sprites/Enemys/Flippy/Flippy0000.png" id="1_hhonw"]
+[ext_resource type="Script" uid="uid://djtdhoksdxwhs" path="res://Assets/Scripts/Creatures/flippy.gd" id="1_oo5g6"]
+[ext_resource type="Texture2D" uid="uid://fse6byj0j8wy" path="res://Assets/Sprites/Enemys/Flippy/Flippy0001.png" id="2_ls6om"]
+[ext_resource type="Texture2D" uid="uid://j7yfg61ftmuh" path="res://Assets/Sprites/Enemys/Flippy/FlippyIdle.png" id="3_34hcr"]
+[ext_resource type="PackedScene" uid="uid://dnmtnni4y8euh" path="res://Assets/Scenes/Scene Objects/Components/HealthComponent.tscn" id="4_34hcr"]
+[ext_resource type="Texture2D" uid="uid://bn78ob2a53abs" path="res://Assets/Sprites/Enemys/Flippy/Scrubber/Flippy0000.png" id="5_hkc58"]
+[ext_resource type="PackedScene" uid="uid://ddhg35vgleg7o" path="res://Assets/Scenes/Scene Objects/Components/HurtBoxComponent.tscn" id="5_oo5g6"]
+[ext_resource type="PackedScene" uid="uid://ct723ewbytpwf" path="res://Assets/Scenes/Scene Objects/Components/AirMovementComponent.tscn" id="7_g4mbr"]
+[ext_resource type="PackedScene" uid="uid://dq4rxftfx1l07" path="res://Assets/Scenes/Scene Objects/Components/AirAIInputComponent.tscn" id="8_ng18c"]
+[ext_resource type="Texture2D" uid="uid://cjc05tg4b41vo" path="res://Assets/Sprites/Enemys/Flippy/Scrubber/Flippy0001.png" id="10_hkc58"]
+[ext_resource type="Texture2D" uid="uid://cktamikwld1g4" path="res://Assets/Sprites/Enemys/Flippy/Scrubber/Flippy0002.png" id="11_lu7y4"]
+[ext_resource type="Texture2D" uid="uid://dpaaueganmv3l" path="res://Assets/Sprites/Enemys/Flippy/Scrubber/Flippy0003.png" id="12_3afdy"]
+[ext_resource type="Texture2D" uid="uid://buf8rogt3gyp5" path="res://Assets/Sprites/Enemys/Flippy/Scrubber/Flippy0004.png" id="13_cdr5x"]
+[ext_resource type="Script" uid="uid://dp8hkkoopdwoo" path="res://Assets/Scripts/StateMachine/stateMachine.gd" id="14_cdr5x"]
+[ext_resource type="Script" uid="uid://dgfa37ovgntyb" path="res://Assets/Scripts/StateMachine/States/idleState.gd" id="16_0m56n"]
+[ext_resource type="Script" uid="uid://ycp4vxm643ke" path="res://Assets/Scripts/StateMachine/States/airFollowState.gd" id="16_cdr5x"]
+[ext_resource type="Script" uid="uid://cs2blxupw4o1r" path="res://Assets/Scripts/StateMachine/States/airAttackState.gd" id="17_0m56n"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uwjp0"]
+radius = 34.5
+height = 128.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ng18c"]
+size = Vector2(66, 128)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0m56n"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kcy3u"]
+animation = &"Spin"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gqjto"]
+animation = &"StartSpinning"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fc4g6"]
+animation = &"StartSpinning"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iw3wt"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1qv0e"]
+advance_mode = 2
+advance_condition = &"Spin"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_aivh8"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tinfq"]
+advance_mode = 2
+advance_condition = &"StopSpinning"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7rlhq"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_s32ml"]
+states/End/position = Vector2(823, 179)
+states/Idle/node = SubResource("AnimationNodeAnimation_0m56n")
+states/Idle/position = Vector2(571, 35)
+states/Spin/node = SubResource("AnimationNodeAnimation_kcy3u")
+states/Spin/position = Vector2(571, 179)
+states/Start/position = Vector2(339, 35)
+states/StartSpinning/node = SubResource("AnimationNodeAnimation_gqjto")
+states/StartSpinning/position = Vector2(655, 107)
+states/StopSpinning/node = SubResource("AnimationNodeAnimation_fc4g6")
+states/StopSpinning/position = Vector2(492, 107)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_iw3wt"), "Idle", "StartSpinning", SubResource("AnimationNodeStateMachineTransition_1qv0e"), "StartSpinning", "Spin", SubResource("AnimationNodeStateMachineTransition_aivh8"), "Spin", "StopSpinning", SubResource("AnimationNodeStateMachineTransition_tinfq"), "StopSpinning", "Idle", SubResource("AnimationNodeStateMachineTransition_7rlhq")]
+graph_offset = Vector2(-38, -12)
+
+[sub_resource type="Animation" id="Animation_c58o2"]
+resource_name = "Idle"
+length = 0.2500125
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("5_hkc58"), ExtResource("5_hkc58")]
+}
+
+[sub_resource type="Animation" id="Animation_ne2ba"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_hkc58")]
+}
+
+[sub_resource type="Animation" id="Animation_d0fio"]
+resource_name = "Spin"
+length = 0.3750125
+loop_mode = 1
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("11_lu7y4"), ExtResource("12_3afdy"), ExtResource("13_cdr5x")]
+}
+
+[sub_resource type="Animation" id="Animation_65ypn"]
+resource_name = "StartSpinning"
+length = 0.12500624
+step = 0.0625
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0625),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("10_hkc58"), ExtResource("10_hkc58")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v2t2m"]
+_data = {
+&"Idle": SubResource("Animation_c58o2"),
+&"RESET": SubResource("Animation_ne2ba"),
+&"Spin": SubResource("Animation_d0fio"),
+&"StartSpinning": SubResource("Animation_65ypn")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hkc58"]
+animation = &"Fly"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lu7y4"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3afdy"]
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cdr5x"]
+advance_mode = 2
+advance_condition = &"fly"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hkc58"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hkc58"]
+states/Fly/node = SubResource("AnimationNodeAnimation_hkc58")
+states/Fly/position = Vector2(536, 62)
+states/Idle/node = SubResource("AnimationNodeAnimation_lu7y4")
+states/Idle/position = Vector2(536, 177)
+states/Start/position = Vector2(314, 100)
+transitions = ["Fly", "Idle", SubResource("AnimationNodeStateMachineTransition_3afdy"), "Idle", "Fly", SubResource("AnimationNodeStateMachineTransition_cdr5x"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_hkc58")]
+
+[sub_resource type="Animation" id="Animation_0m56n"]
+resource_name = "Fly"
+length = 0.0833375
+loop_mode = 1
+step = 0.041666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.041666668),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("1_hhonw"), ExtResource("2_ls6om")]
+}
+
+[sub_resource type="Animation" id="Animation_3afdy"]
+resource_name = "Idle"
+
+[sub_resource type="Animation" id="Animation_cdr5x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_34hcr")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kcy3u"]
+_data = {
+&"Fly": SubResource("Animation_0m56n"),
+&"Idle": SubResource("Animation_3afdy"),
+&"RESET": SubResource("Animation_cdr5x")
+}
+
+[node name="Flippy" type="CharacterBody2D" node_paths=PackedStringArray("movementComponent", "wingAnimationTree", "scrubberAnimationTree")]
+collision_layer = 8
+collision_mask = 12
+motion_mode = 1
+script = ExtResource("1_oo5g6")
+movementComponent = NodePath("AirMovementComponent")
+wingAnimationTree = NodePath("WingAnimationTree")
+scrubberAnimationTree = NodePath("ScrubberAnimationTree")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 40)
+texture = ExtResource("3_34hcr")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(0, 40)
+texture = ExtResource("5_hkc58")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_uwjp0")
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_34hcr")]
+maxHealth = 100.0
+
+[node name="HurtBoxComponent" parent="." node_paths=PackedStringArray("healthComponent", "movementComponent") instance=ExtResource("5_oo5g6")]
+collision_layer = 8
+collision_mask = 2
+contactDamage = 1.0
+healthComponent = NodePath("../HealthComponent")
+movementComponent = NodePath("../AirMovementComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
+visible = false
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_ng18c")
+
+[node name="AirMovementComponent" parent="." node_paths=PackedStringArray("parent", "inputComponent") instance=ExtResource("7_g4mbr")]
+parent = NodePath("..")
+inputComponent = NodePath("../AirAIInputComponent")
+
+[node name="AirAIInputComponent" parent="." node_paths=PackedStringArray("parent", "navigationAgent") instance=ExtResource("8_ng18c")]
+parent = NodePath("..")
+navigationAgent = NodePath("../NavigationAgent2D")
+DoPlayerInput = false
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
+
+[node name="ScrubberAnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_s32ml")
+anim_player = NodePath("../ScrubberAnimationPlayer")
+parameters/conditions/Spin = false
+parameters/conditions/StopSpinning = false
+
+[node name="ScrubberAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_v2t2m")
+}
+
+[node name="WingAnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_hkc58")
+anim_player = NodePath("../WingAnimationPlayer")
+parameters/conditions/fly = false
+parameters/conditions/idle = false
+
+[node name="WingAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_kcy3u")
+}
+
+[node name="StateMachine" type="Node2D" parent="." node_paths=PackedStringArray("currentState", "airAIInputComponent")]
+script = ExtResource("14_cdr5x")
+currentState = NodePath("IdleState")
+airAIInputComponent = NodePath("../AirAIInputComponent")
+
+[node name="IdleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("nextState")]
+script = ExtResource("16_0m56n")
+lookRadius = 800.0
+nextState = NodePath("../AirFollowState")
+
+[node name="AirFollowState" type="Node" parent="StateMachine" node_paths=PackedStringArray("nextState")]
+script = ExtResource("16_cdr5x")
+lookRadius = 200.0
+nextState = NodePath("../AirAttackState")
+
+[node name="AirAttackState" type="Node" parent="StateMachine" node_paths=PackedStringArray("movementComponent", "nextState")]
+script = ExtResource("17_0m56n")
+movementComponent = NodePath("../../AirMovementComponent")
+nextState = NodePath("../AirFollowState")
+
+[connection signal="DamageDelt" from="HealthComponent" to="." method="_on_damage_delt"]
+[connection signal="Died" from="HealthComponent" to="." method="_died"]

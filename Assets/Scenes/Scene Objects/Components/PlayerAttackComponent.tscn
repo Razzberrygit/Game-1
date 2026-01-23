@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxk4gs1trb627"]
+
+[ext_resource type="Script" uid="uid://eeird6mtg4ks" path="res://Assets/Scripts/Components/playerAttackComponent.gd" id="1_v4v4s"]
+
+[node name="PlayerAttackComponent" type="Node2D" node_paths=PackedStringArray("InputComponent", "MovementComponent", "parent")]
+script = ExtResource("1_v4v4s")
+InputComponent = NodePath("")
+MovementComponent = NodePath("")
+parent = NodePath("")

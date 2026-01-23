@@ -1,0 +1,99 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgfqr5i3pgki3"]
+
+[ext_resource type="Script" uid="uid://jwhhyjeidaeq" path="res://Assets/Scripts/GUI/GUI.gd" id="1_m31hn"]
+[ext_resource type="Script" uid="uid://xmcdaqmluo7e" path="res://Assets/Scripts/GUI/DisplayInventory.gd" id="2_g55es"]
+
+[node name="GUI" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_m31hn")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer"]
+layout_mode = 2
+tab_alignment = 1
+current_tab = 1
+tabs_position = 1
+
+[node name="InventoryContainer" type="HBoxContainer" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="EquipmentMargin" type="MarginContainer" parent="MarginContainer/TabContainer/InventoryContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="EquipmentSection" type="VBoxContainer" parent="MarginContainer/TabContainer/InventoryContainer/EquipmentMargin"]
+layout_mode = 2
+
+[node name="EquipmentLabel" type="Label" parent="MarginContainer/TabContainer/InventoryContainer/EquipmentMargin/EquipmentSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Equipment"
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/TabContainer/InventoryContainer/EquipmentMargin/EquipmentSection"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="InventoryMargin" type="MarginContainer" parent="MarginContainer/TabContainer/InventoryContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="InventorySection" type="VBoxContainer" parent="MarginContainer/TabContainer/InventoryContainer/InventoryMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InventoryLabel" type="Label" parent="MarginContainer/TabContainer/InventoryContainer/InventoryMargin/InventorySection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Inventory"
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/TabContainer/InventoryContainer/InventoryMargin/InventorySection"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/TabContainer/InventoryContainer/InventoryMargin/InventorySection/PanelContainer"]
+layout_mode = 2
+
+[node name="DisplayInventory" type="FlowContainer" parent="MarginContainer/TabContainer/InventoryContainer/InventoryMargin/InventorySection/PanelContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+script = ExtResource("2_g55es")
+
+[node name="AdminControls" type="Control" parent="MarginContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/AdminControls"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AddCoalButton" type="Button" parent="MarginContainer/TabContainer/AdminControls/HBoxContainer"]
+layout_mode = 2
+text = "Add Coal"
+
+[node name="ChangeSceneButton" type="Button" parent="MarginContainer/TabContainer/AdminControls/HBoxContainer"]
+layout_mode = 2
+text = "Change Scene"
+
+[connection signal="button_down" from="MarginContainer/TabContainer/AdminControls/HBoxContainer/AddCoalButton" to="." method="_on_coal_button_down"]
+[connection signal="button_down" from="MarginContainer/TabContainer/AdminControls/HBoxContainer/ChangeSceneButton" to="." method="_on_change_scene_button_down"]

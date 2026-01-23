@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://bm62t5vnm126t"]
+
+[ext_resource type="Script" uid="uid://piihevy2410b" path="res://Assets/Scripts/Creatures/Enemy.gd" id="1_tk0c2"]
+[ext_resource type="Texture2D" uid="uid://b1ojsb5l4w7uh" path="res://Assets/Sprites/Enemys/Hunchback.png" id="2_tk0c2"]
+[ext_resource type="PackedScene" uid="uid://y7cms8xm5ufl" path="res://Assets/Scenes/Scene Objects/Components/GroundAIInputComponent.tscn" id="3_12fun"]
+[ext_resource type="PackedScene" uid="uid://dnmtnni4y8euh" path="res://Assets/Scenes/Scene Objects/Components/HealthComponent.tscn" id="3_hoo07"]
+[ext_resource type="PackedScene" uid="uid://405uppb7qdeo" path="res://Assets/Scenes/Scene Objects/Components/MovementComponent.tscn" id="3_v1m4g"]
+[ext_resource type="PackedScene" uid="uid://ddhg35vgleg7o" path="res://Assets/Scenes/Scene Objects/Components/HurtBoxComponent.tscn" id="4_34dii"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n602b"]
+size = Vector2(83, 281)
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_tk0c2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5.5)
+shape = SubResource("RectangleShape2D_n602b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -5.235)
+texture = ExtResource("2_tk0c2")
+offset = Vector2(4, 0)
+
+[node name="AIInputComponent" parent="." node_paths=PackedStringArray("movementComponent", "collisionShape", "parent") instance=ExtResource("3_12fun")]
+movementComponent = NodePath("../MovementComponent")
+collisionShape = NodePath("../CollisionShape2D")
+parent = NodePath("..")
+
+[node name="MovementComponent" parent="." node_paths=PackedStringArray("parent", "collisionShape", "inputComponent") instance=ExtResource("3_v1m4g")]
+walkSpeed = 300.0
+parent = NodePath("..")
+collisionShape = NodePath("../CollisionShape2D")
+inputComponent = NodePath("../AIInputComponent")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_hoo07")]
+maxHealth = 200.0
+
+[node name="HurtBoxComponent" parent="." node_paths=PackedStringArray("healthComponent", "movementComponent") instance=ExtResource("4_34dii")]
+collision_layer = 8
+collision_mask = 2
+contactDamage = 1.0
+healthComponent = NodePath("../HealthComponent")
+movementComponent = NodePath("../MovementComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
+visible = false
+shape = SubResource("RectangleShape2D_n602b")
+
+[connection signal="DamageDelt" from="HealthComponent" to="." method="_on_damage_delt"]
+[connection signal="Died" from="HealthComponent" to="." method="_died"]

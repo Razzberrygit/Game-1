@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://pcq4lbej82w7"]
+
+[ext_resource type="Script" uid="uid://nui02rhd3utp" path="res://Assets/Scripts/Item/AutoPickupItem.gd" id="1_ib6c7"]
+[ext_resource type="Texture2D" uid="uid://cocv4yva2q8jp" path="res://Assets/Sprites/Items/Coal.png" id="2_aotdq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5r3fk"]
+radius = 21.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ib6c7"]
+radius = 32.0
+
+[node name="Coal" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 4
+linear_damp = 2.0
+script = ExtResource("1_ib6c7")
+itemCount = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_aotdq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5r3fk")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+shape = SubResource("CircleShape2D_ib6c7")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_player_body_entered"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://babubhv6ewhuh"]
+
+[ext_resource type="Script" uid="uid://doax2sygj1ppc" path="res://Assets/Scripts/Components/groundMovementComponent.gd" id="1_ic7or"]
+
+[node name="GoundMovementComponent" type="Node2D"]
+script = ExtResource("1_ic7or")

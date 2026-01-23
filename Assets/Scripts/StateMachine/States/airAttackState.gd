@@ -13,3 +13,4 @@ func UpdateState(delta: float) -> void:
 		timerCount += delta
 	else:
 		stateMachine.TravelToState(nextState)
+#omg

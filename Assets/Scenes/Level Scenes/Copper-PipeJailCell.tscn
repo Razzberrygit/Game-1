@@ -18,6 +18,7 @@ size = Vector2(294, 743)
 [node name="Node2D" type="Node2D"]
 
 [node name="Camera" parent="." instance=ExtResource("1_wvrcb")]
+position = Vector2(-1618, 0)
 stillCameraPosition = Vector2(-2230, 40)
 
 [node name="PlayerSpawner" parent="." instance=ExtResource("2_htef8")]

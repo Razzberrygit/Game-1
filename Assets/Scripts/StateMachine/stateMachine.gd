@@ -4,9 +4,10 @@ class_name StateMachine
 @export var currentState: State
 
 @export var airAIInputComponent: AirAIInputComponent
+@export var movementComponent: MovementComponent
 
 func _ready() -> void:
-	currentState = get_children()[0]
+	currentState = get_child(0)
 	currentState.EnteredState()
 	for i in get_children().size():
 		get_children()[i].stateMachine = self

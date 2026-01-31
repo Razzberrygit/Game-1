@@ -213,7 +213,7 @@ _data = {
 &"RESET": SubResource("Animation_cdr5x")
 }
 
-[node name="Flippy" type="CharacterBody2D" node_paths=PackedStringArray("movementComponent", "wingAnimationTree", "scrubberAnimationTree")]
+[node name="Flippy" type="CharacterBody2D" node_paths=PackedStringArray("movementComponent", "wingAnimationTree", "scrubberAnimationTree", "stateMachine")]
 collision_layer = 8
 collision_mask = 12
 motion_mode = 1
@@ -221,6 +221,7 @@ script = ExtResource("1_oo5g6")
 movementComponent = NodePath("AirMovementComponent")
 wingAnimationTree = NodePath("WingAnimationTree")
 scrubberAnimationTree = NodePath("ScrubberAnimationTree")
+stateMachine = NodePath("StateMachine")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 40)
@@ -251,6 +252,7 @@ position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_ng18c")
 
 [node name="AirMovementComponent" parent="." node_paths=PackedStringArray("parent", "inputComponent") instance=ExtResource("7_g4mbr")]
+sprintSpeed = 2000.0
 parent = NodePath("..")
 inputComponent = NodePath("../AirAIInputComponent")
 
@@ -260,7 +262,6 @@ navigationAgent = NodePath("../NavigationAgent2D")
 DoPlayerInput = false
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-debug_enabled = true
 
 [node name="ScrubberAnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_s32ml")
@@ -284,10 +285,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_kcy3u")
 }
 
-[node name="StateMachine" type="Node2D" parent="." node_paths=PackedStringArray("currentState", "airAIInputComponent")]
+[node name="StateMachine" type="Node2D" parent="." node_paths=PackedStringArray("currentState", "airAIInputComponent", "movementComponent")]
 script = ExtResource("14_cdr5x")
 currentState = NodePath("IdleState")
 airAIInputComponent = NodePath("../AirAIInputComponent")
+movementComponent = NodePath("../AirMovementComponent")
 
 [node name="IdleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("nextState")]
 script = ExtResource("16_0m56n")
@@ -296,13 +298,16 @@ nextState = NodePath("../AirFollowState")
 
 [node name="AirFollowState" type="Node" parent="StateMachine" node_paths=PackedStringArray("nextState")]
 script = ExtResource("16_cdr5x")
-lookRadius = 200.0
+lookRadius = 300.0
+followOffset = Vector2(300, -200)
+timerLength = 4.0
 nextState = NodePath("../AirAttackState")
 
-[node name="AirAttackState" type="Node" parent="StateMachine" node_paths=PackedStringArray("movementComponent", "nextState")]
+[node name="AirAttackState" type="Node" parent="StateMachine" node_paths=PackedStringArray("nextState")]
 script = ExtResource("17_0m56n")
-movementComponent = NodePath("../../AirMovementComponent")
+timerLength = 1.0
 nextState = NodePath("../AirFollowState")
 
 [connection signal="DamageDelt" from="HealthComponent" to="." method="_on_damage_delt"]
+[connection signal="DamageDelt" from="HealthComponent" to="StateMachine/AirAttackState" method="_on_damage_delt"]
 [connection signal="Died" from="HealthComponent" to="." method="_died"]

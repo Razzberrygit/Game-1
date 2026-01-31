@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bt35evfnn8p1p"]
+
+[ext_resource type="Texture2D" uid="uid://bb3g84redwgdf" path="res://Assets/Sprites/Environment/Static/Windows.png" id="1_g30cf"]
+[ext_resource type="Shader" uid="uid://mf68soxf3nwb" path="res://Assets/Shaders/WindowGlow.gdshader" id="2_ututu"]
+[ext_resource type="Texture2D" uid="uid://fapaaw4yibm8" path="res://Assets/Sprites/Environment/Static/WindowGlow.png" id="3_66j8x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gy67o"]
+shader = ExtResource("2_ututu")
+shader_parameter/glowColor = Color(0.13888523, 0.114537574, 0.059652463, 1)
+shader_parameter/glowPower = 3.70000005513444
+shader_parameter/glowShift = 1.70000002533204
+shader_parameter/glowRadius = 2.0
+
+[node name="CopperWindow1" type="Sprite2D"]
+texture = ExtResource("1_g30cf")
+region_enabled = true
+region_rect = Rect2(0, 0, 422, 652)
+
+[node name="WindowGlow" type="Sprite2D" parent="."]
+z_index = 1
+material = SubResource("ShaderMaterial_gy67o")
+texture = ExtResource("3_66j8x")
+region_enabled = true
+region_rect = Rect2(0, 0, 422, 652)

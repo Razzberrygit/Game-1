@@ -2,6 +2,8 @@ extends MovementComponent
 class_name AirMovementComponent
 
 func _physics_process(_delta: float) -> void:
+	HandleSprint()
+	
 	HandleAirPositionSmoothing()
 	
 	parent.move_and_slide()

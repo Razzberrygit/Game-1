@@ -1,10 +1,11 @@
-[gd_scene load_steps=30 format=4 uid="uid://bb8rvmlq8tf8v"]
+[gd_scene load_steps=32 format=4 uid="uid://bb8rvmlq8tf8v"]
 
 [ext_resource type="PackedScene" uid="uid://cofvttol0m26e" path="res://Assets/Scenes/Scene Objects/GUI/camera.tscn" id="1_f1058"]
 [ext_resource type="Texture2D" uid="uid://g6e21iijccpo" path="res://Assets/Sprites/Environment/Static/PipeFence.png" id="3_f1058"]
 [ext_resource type="TileSet" uid="uid://cwas0ajmefita" path="res://Assets/Sprites/Environment/TileSets/Copper-Jail.tres" id="4_ignig"]
 [ext_resource type="Texture2D" uid="uid://kqjovbrjlcoi" path="res://Assets/Sprites/Environment/Static/CopperPipeCage.png" id="6_fheyl"]
 [ext_resource type="Shader" uid="uid://ckx3ojtapinq6" path="res://Assets/Shaders/Fog.gdshader" id="6_fsxms"]
+[ext_resource type="PackedScene" uid="uid://bt35evfnn8p1p" path="res://Assets/Scenes/Scene Objects/Environment Objects/copper_window_1.tscn" id="7_fsxms"]
 [ext_resource type="PackedScene" uid="uid://lk8gwco3w331" path="res://Assets/Scenes/Scene Objects/Environment Objects/external_copper_jail_r.tscn" id="7_pq0xs"]
 [ext_resource type="Texture2D" uid="uid://bt5rf4cilx0e0" path="res://Assets/Sprites/Environment/Static/stonePiller1.png" id="7_x82sn"]
 [ext_resource type="PackedScene" uid="uid://bpya6lvmjntcg" path="res://Assets/Scenes/Scene Objects/Environment Objects/external_copper_jail_l.tscn" id="8_0pwes"]
@@ -35,6 +36,12 @@ shader_parameter/color_over = Color(0.015686275, 0.019607844, 0.05490196, 1)
 shader = ExtResource("6_fsxms")
 shader_parameter/blurAmount = 0.25
 shader_parameter/mixAmount = 0.50000002375
+shader_parameter/color_over = Color(0.015686275, 0.019607844, 0.05490196, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pq0xs"]
+shader = ExtResource("6_fsxms")
+shader_parameter/blurAmount = 0.10000000475
+shader_parameter/mixAmount = 0.10000000475
 shader_parameter/color_over = Color(0.015686275, 0.019607844, 0.05490196, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x82sn"]
@@ -1197,10 +1204,30 @@ offset_top = -15808.571
 offset_right = 5971.4277
 offset_bottom = 16804.285
 
+[node name="CanvasLayer-2" type="CanvasLayer" parent="Environment"]
+layer = -1
+follow_viewport_enabled = true
+follow_viewport_scale = 0.945
+
+[node name="TileMapLayer3" type="TileMapLayer" parent="Environment/CanvasLayer-2"]
+position = Vector2(100, 0)
+tile_map_data = PackedByteArray("AADw/y4AAgAAAAEAAADw/y0AAgABAAEAAADw/ywAAgABAAEAAADw/ysAAgABAAEAAADw/yoAAgAAAAEAAADx/yoAAgABAAEAAADy/yoAAgABAAEAAADz/yoAAgABAAEAAAD0/yoAAgABAAEAAAD1/yoAAgABAAEAAAD2/yoAAgACAAEAAAD2/ysAAgACAAEAAAD2/ywAAgACAAEAAAD2/y0AAgACAAEAAAD1/y4AAgABAAEAAAD2/y4AAgACAAEAAAD0/y4AAgABAAEAAADz/y4AAgABAAEAAADy/y4AAgABAAEAAADx/y4AAgABAAEAAADx/y0AAgABAAEAAADx/ywAAgABAAEAAADx/ysAAgABAAEAAADy/y0AAgABAAEAAADy/ywAAgABAAEAAADy/ysAAgABAAEAAADz/ysAAgABAAEAAADz/ywAAgABAAEAAAD0/ywAAgABAAEAAADz/y0AAgABAAEAAAD0/y0AAgABAAEAAAD1/ywAAgABAAEAAAD1/ysAAgABAAEAAAD1/y0AAgABAAEAAAD0/ysAAgABAAEAAADw/ykAAgAAAAAAAADx/ykAAgABAAAAAADy/ykAAgABAAAAAADz/ykAAgABAAAAAAD0/ykAAgABAAAAAAD1/ykAAgABAAAAAAD2/ykAAgACAAAAAADw/y8AAgAAAAIAAADx/y8AAgABAAIAAADy/y8AAgABAAIAAADz/y8AAgABAAIAAAD0/y8AAgABAAIAAAD1/y8AAgABAAIAAAD2/y8AAgACAAIAAAANACkAAgAAAAEAAAAOACkAAgABAAEAAAAPACkAAgABAAEAAAAQACkAAgABAAEAAAARACkAAgABAAEAAAASACkAAgABAAEAAAATACkAAgACAAAAAAATACoAAgACAAEAAAATACsAAgACAAEAAAASACwAAgABAAEAAAASAC0AAgABAAEAAAATAC0AAgACAAEAAAATAC4AAgACAAEAAAASAC4AAgABAAEAAAASAC8AAgABAAIAAAANAC8AAgAAAAIAAAANAC4AAgABAAEAAAANAC0AAgABAAEAAAANACwAAgABAAEAAAANACsAAgABAAEAAAANACoAAgAAAAEAAAAOACoAAgABAAEAAAAPACoAAgABAAEAAAAQACoAAgABAAEAAAARACoAAgABAAEAAAASACoAAgABAAEAAAATACwAAgACAAEAAAATAC8AAgACAAIAAAARAC8AAgABAAIAAAAQAC8AAgABAAIAAAAPAC8AAgABAAIAAAAOAC8AAgABAAIAAAAOAC4AAgABAAEAAAAOAC0AAgABAAEAAAAOACwAAgABAAEAAAAOACsAAgABAAEAAAAPACsAAgABAAEAAAAQACsAAgABAAEAAAAQACwAAgABAAEAAAAQAC0AAgABAAEAAAAPAC0AAgABAAEAAAAPAC4AAgABAAEAAAAPACwAAgABAAEAAAARACsAAgABAAEAAAASACsAAgABAAEAAAARAC4AAgABAAEAAAAQAC4AAgABAAEAAAARAC0AAgABAAEAAAARACwAAgABAAEAAAA=")
+tile_set = ExtResource("4_ignig")
+
+[node name="CopperWindow1" parent="Environment/CanvasLayer-2" instance=ExtResource("7_fsxms")]
+position = Vector2(-2500, 8900)
+
+[node name="Fog" type="ColorRect" parent="Environment/CanvasLayer-2"]
+material = SubResource("ShaderMaterial_pq0xs")
+offset_left = -8476.088
+offset_top = -14963.043
+offset_right = 11783.697
+offset_bottom = 14290.217
+
 [node name="Layer Piller" type="CanvasLayer" parent="Environment"]
 layer = -1
 follow_viewport_enabled = true
-follow_viewport_scale = 0.96
+follow_viewport_scale = 0.97
 
 [node name="StonePiller1" type="Sprite2D" parent="Environment/Layer Piller"]
 position = Vector2(-2000, 8913.265)
@@ -1367,6 +1394,7 @@ tile_set = ExtResource("4_ignig")
 
 [node name="LevelChange" parent="Environment/TileMapLayer" instance=ExtResource("8_x82sn")]
 pathToChangeTo = "res://Assets/Scenes/Level Scenes/CopperHall1.tscn"
+newPlayerPosition = Vector2(-200, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/TileMapLayer/LevelChange"]
 position = Vector2(-2949.5, 8900)
